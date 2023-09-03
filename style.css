@@ -12,11 +12,13 @@ footer{
     color: white;
     padding: 0.5%;
     font-size: 1.2rem;
-    position: absolute;
+    margin: 0;
+    width: 99%;
+    /* position: absolute;
     height: 2%;
     width: 99%;
     top:98%;
-    left: 0;
+    left: 0; */
 }
 
 h1{
@@ -27,4 +29,78 @@ h1{
 p{
     color: #FFCDBC;
     font-size: 1.5rem;
+}
+
+.info-image-card-box{
+    justify-content: center;
+    text-align: center;
+    /* background-color: blue; */
+}
+
+.info-image-card{
+    display: inline-block;
+    padding: 1%;
+    margin: 1%;
+    border-radius: 10px;
+    /* background-color: red; */
+    background-size: cover;
+    width: 20%;
+    font-size: 1rem;
+    transition: all 0.5s;
+}
+
+.info-image-card-container{
+    text-align:left;
+    padding: 1%;
+}
+
+.info-image-card-image{
+    border-radius: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 100%;
+}
+
+.info-image-card-image-overlay{
+    transition: all 0.5s;
+    position: relative;
+    width: 100%;
+}
+
+.info-image-card-image-overlay:hover{
+    display: flex;
+    border-radius: 10px;
+    background-color: rgba(211, 56, 139, 0.343);
+    /* justify-content: center; */
+    align-items: center;
+}
+
+.info-image-card-image-overlay:hover .btn{
+    opacity: 1;
+    transition: all 0.5s;
+}
+
+.info-image-card-image-overlay .btn {
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: #555;
+    color: white;
+    font-size: 16px;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.info-image-card-1{
+    background-image:url("./images/vloz2.png");
+}
+
+.info-image-card-2{
+    background-image:url("./images/yntdts.png");
 }
