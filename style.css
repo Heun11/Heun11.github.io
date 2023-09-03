@@ -1,0 +1,30 @@
+body{
+    background-color: #130303;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    color:#FFCDBC
+}
+
+footer{
+    background-color: #2D080A;
+    text-align: center;
+    font-weight: bold;
+    color: white;
+    padding: 0.5%;
+    font-size: 1.2rem;
+    position: absolute;
+    height: 2%;
+    width: 99%;
+    top:98%;
+    left: 0;
+}
+
+h1{
+    color: #F5853F;
+    font-size: 4rem;
+}
+
+p{
+    color: #FFCDBC;
+    font-size: 1.5rem;
+}
