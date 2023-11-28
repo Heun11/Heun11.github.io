@@ -135,8 +135,155 @@ p{
   white-space: pre;
 }
 
+#pc{
+  display: block;
+}
+#mobil{
+  display: none;
+}
+
 @media screen and (max-width: 1200px) {
-  .line{
-    font-size: 0.8rem;
-  }  
+  #pc{
+    display: none;
+  }
+  #mobil{
+    display: block;
+  }
+  body{
+    border-radius: 15px;
+    margin: 0 auto;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    height: 100%;
+    width: 90vw;
+    padding: 2vw;
+  }
+  .box-holder{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem 2rem;
+  }
+  .box{
+    display: flex;
+    background-color: #3a3a3a;
+    border-radius: 10px;
+    justify-content: center;
+    align-content: center;
+    flex-grow: 1;
+  }
+
+  #heading{
+    width: 100%;
+  }
+  #heading h1{
+    font-size: 8vw;
+    flex-grow: 1;
+    color: #aafaaa;
+    justify-self: center;
+  }
+
+  #about-box{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem 1rem;
+  }
+  .about h2{
+    font-size: 6.5vw;
+    flex-grow: 1;
+    color: #aafaaa;
+    justify-self: center;
+  }
+  #about-text p{
+    padding: 0.5rem;
+    padding-left: 1rem;
+    text-align: left;
+    font-size: 5vw;
+    flex-grow: 1;
+    color: #FFCDBC;
+    text-wrap: wrap;
+    justify-self: center;
+  }
+
+  #banner p{
+    font-size: 3vw;
+    color: #FFCDBC;
+  }
+
+  #interests-box{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem 1rem;
+  }
+  #interests ul{
+    padding: 0.5rem;
+    text-align: left;
+    font-size: 5vw;
+    color: #FFCDBC;
+    text-wrap: wrap;
+  }
+  #interests li{
+    color: #FFCDBC;
+    text-wrap: wrap;
+    justify-self: center;
+  }
+  #interests li::marker {
+    content: '> ';
+  }
+
+  #project-box{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem 1rem;
+  }
+  #project ul{
+    padding: 0.5rem;
+    text-align: left;
+    color: #FFCDBC;
+    text-wrap: wrap;
+  }
+  #project li{
+    color: #FFCDBC;
+    font-size: 4.2vw;
+    text-wrap: wrap;
+    justify-self: center;
+  }
+  #project li::marker {
+    content: '~ ';
+  }
+  
+
+  #social-box{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem 1rem;
+  }
+  #social-content{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem 1rem;
+  }
+  #social-box h1{
+    font-size: 6.5vw;
+    flex-grow: 1;
+    color: #aafaaa;
+    justify-self: center;
+  }
+  #social-box ul{
+    text-align: left;
+    font-size: 6vw;
+    color: #FFCDBC;
+    text-wrap: wrap;
+  }
+  #social-box li{
+    color: #faf;
+    text-wrap: wrap;
+    justify-self: center;
+  }
+  #social-box li::marker {
+    content: '# ';
+  }
+
+  #footer-box h2{
+    color: #daa998;
+  }
 }
