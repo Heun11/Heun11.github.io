@@ -188,7 +188,7 @@ p{
     gap: 1rem 1rem;
   }
   .about h2{
-    font-size: 6vw;
+    font-size: 5.5vw;
     flex-grow: 1;
     color: #aafaaa;
     justify-self: center;
@@ -215,7 +215,7 @@ p{
     gap: 1rem 1rem;
   }
   #interests ul{
-    padding: 0.5rem;
+    padding-left: 5vw;
     text-align: left;
     font-size: 5vw;
     color: #FFCDBC;
@@ -236,7 +236,7 @@ p{
     gap: 1rem 1rem;
   }
   #project ul{
-    padding: 0.5rem;
+    padding-left: 5vw;
     text-align: left;
     color: #FFCDBC;
     text-wrap: wrap;
@@ -269,6 +269,7 @@ p{
     justify-self: center;
   }
   #social-box ul{
+    padding-left: 5vw;
     text-align: left;
     font-size: 6vw;
     color: #FFCDBC;
