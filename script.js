@@ -3,8 +3,14 @@ var input = document.getElementById('input');
 var terminal = document.getElementById('output');
 var term = document.getElementById('terminal');
 var command = '';
+var runMatrix = false;
+const fps = 30;
+var matrixTable = undefined;
+var matrixLengths = [];
+var matrixCounts = [];
 
-function yearsSince(dateString) {
+function yearsSince(dateString) 
+{
   const givenDate = new Date(dateString);
   const currentDate = new Date();
   let years = currentDate.getFullYear() - givenDate.getFullYear();
@@ -19,6 +25,122 @@ function yearsSince(dateString) {
   }
 
   return years;
+}
+
+function getCharacterWidth(div) 
+{
+  const divWidth = div.offsetWidth;
+  const tempSpan = document.createElement('span');
+  tempSpan.textContent = 'A'; // Use a single character
+  tempSpan.style.font = getComputedStyle(div).font; // Match the font of the div
+  tempSpan.style.visibility = 'hidden'; // Ensure it's not visible
+  document.body.appendChild(tempSpan);
+  const charWidth = tempSpan.offsetWidth;
+  document.body.removeChild(tempSpan);
+  return Math.floor(divWidth / charWidth);
+}
+
+function getCharacterHeight(div) 
+{
+  const tempSpan = document.createElement('span');
+  tempSpan.textContent = 'A'; // Single character for measurement
+  tempSpan.style.font = getComputedStyle(div).font; // Match the font
+  tempSpan.style.lineHeight = getComputedStyle(div).lineHeight; // Match line-height
+  tempSpan.style.visibility = 'hidden'; // Hide from view
+  document.body.appendChild(tempSpan);
+  const charHeight = tempSpan.offsetHeight;
+  document.body.removeChild(tempSpan);
+  return charHeight;
+}
+
+function calculateCSSValue(expression) 
+{
+  const tempElement = document.createElement('div');
+  tempElement.style.position = 'absolute';
+  tempElement.style.visibility = 'hidden'; // Ensure it's not visible
+  tempElement.style.height = expression; // Set the expression as the height
+  document.body.appendChild(tempElement);
+  const computedValue = getComputedStyle(tempElement).height;
+  document.body.removeChild(tempElement);
+  return parseFloat(computedValue);
+}
+
+function getLinesInDiv(div) 
+{
+  const divHeight = calculateCSSValue("calc(90vh - 3rem)"); // Total height of the div
+  const charHeight = getCharacterHeight(div); // Height of a single character line
+  console.log((divHeight), charHeight);
+  return Math.floor(divHeight / charHeight); // Calculate the number of lines
+}
+
+function generateRandomString(length) 
+{
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*+=-[](){}.,;';
+  const charactersLength = characters.length;
+  var result = '';
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
+
+function getRandomNumber(x, y) 
+{
+  return Math.floor(Math.random() * (y - x + 1)) + x;
+}
+
+function matrix()
+{
+  terminal.innerText = '';
+  printLine('<span class="line matrix-text-first">-> Press ESC to exit matrix. Now, let it rain!</span>');
+  var width = getCharacterWidth(terminal);
+  var height = getLinesInDiv(terminal);
+  if(!matrixTable || matrixTable.length!=width || matrixTable[0].length!=height){
+    matrixTable = [];
+    for(var i=0;i<width;i++){
+      matrixTable[i] = generateRandomString(height);
+      matrixCounts[i] = 0;
+      matrixLengths[i] = getRandomNumber(5, 20);
+    }
+  }
+  var line;
+  let c;
+
+  for(var i=0;i<height;i++){
+    
+    line = '';
+    for(var j=0;j<width;j++){
+      if(i==0){
+        matrixCounts[j]++;
+      }
+      if(matrixCounts[j]>height+matrixLengths[j]){
+        matrixTable[j] = generateRandomString(height);
+        matrixCounts[j] = 0;
+        matrixLengths[j] = getRandomNumber(5, 30);
+      }
+      if(matrixCounts[j]<height){
+        c = `matrix-text${(i==matrixCounts[j])?'-first':''}`;
+      }
+      else{
+        c = `matrix-text`;
+      }
+
+      if(i<matrixCounts[j] && i>matrixCounts[j]-matrixLengths[j]){
+        c += ' matrix-text-in';
+      }
+
+      line+=`<span class="line ${c}">${matrixTable[j][i]}</span>`;
+    }
+    printLine(line);
+  }
+}
+
+function startLoop()
+{
+  if(runMatrix===true){
+    matrix();
+    setTimeout(startLoop, 1000/fps);
+  }
 }
 
 var commands = {
@@ -43,17 +165,26 @@ var commands = {
   ],
   'help':[
     '&nbsp',
-    ' help                  -> print all commands',
-    ' cat                   -> cat what ?',
-    ' banner                -> cool banner',
-    ' whoami                -> info about me',
-    ' social                -> get my contact info',
-    ' projects              -> info about some of my projects',
-    ' clear                 -> clear screen',
-    ' matrix                -> Matrix ?!',
+    '<span class="line title">help</span>',
+    ' <span class="line fancy-text">└─></span> print all commands',
+    '<span class="line title">cat</span>',
+    ' <span class="line fancy-text">└─></span> cat what ?',
+    '<span class="line title">banner</span>',
+    ' <span class="line fancy-text">└─></span> cool banner',
+    '<span class="line title">whoami</span>',
+    ' <span class="line fancy-text">└─></span> info about me',
+    '<span class="line title">social</span>',
+    ' <span class="line fancy-text">└─></span> get my contact info',
+    '<span class="line title">projects</span>',
+    ' <span class="line fancy-text">└─></span> info about some of my projects',
+    '<span class="line title">clear</span>',
+    ' <span class="line fancy-text">└─></span> clear screen',
+    '<span class="line title">matrix</span>',
+    ' <span class="line fancy-text">└─></span> Matrix ?!',
     '&nbsp',
   ],
   'clear':['cleared ;)'],
+  'matrix':['let it rain'],
   'social':[
     '&nbsp',
     '    ┏┓┳┏┳┓┏┳┳┳┓       ┏┓┳┳┓┏┓┳┓       ┳┳┓┏┓┏┳┓┏┓┏┓┳┓┏┓┳┳┓  ',
@@ -64,16 +195,6 @@ var commands = {
     '&nbsp',
   ],
   'projects':[
-    '&nbsp',
-    ' Portfolio Web         -> <a href=\'https://heun11.github.io/\'>Heun11@portfolio</a>',
-    ' Enguin                -> <a href=\'https://github.com/Heun11/Enguin\'>Heun11@Enguin</a>',
-    ' Vloz2                 -> <a href=\'https://github.com/Heun11/Vloz2\'>Heun11@Vloz2</a>',
-    ' TouchSliderjs         -> <a href=\'https://github.com/Heun11/touchSliderJS\'>Heun11@touchSliderJS</a>',
-    ' slovenskeC            -> <a href=\'https://github.com/Heun11/slovenskeC\'>Heun11@SlovenskeC</a>',
-    ' RayCastingEngineJS    -> <a href=\'https://github.com/Heun11/RayCastingEngineJS\'>Heun11@RayCastingEngineJS</a>',
-    ' Filipos\'s Tale        -> <a href=\'https://github.com/Heun11/filiposs-tale\'>Heun11@filiposs-tale</a>',
-    ' Brainf*ck interpreter -> <a href=\'https://github.com/Heun11/brainf_ck-interpreter\'>Heun11@brainf_ck-interpreter</a>',
-    ' Minimax TicTacToe     -> <a href=\'https://github.com/Heun11/minimax-ticttactoe\'>Heun11@minimax-ticttactoe</a>',
     '&nbsp',
     '<span class="line category">./</span>',
     ' ├─<span class="line category">Fully Finished Projects:</span>',
@@ -89,12 +210,22 @@ var commands = {
     ' │  │  └─ <a class="fancy-text" href=\'https://github.com/Heun11/filiposs-tale\' target="_blank" rel="noopener noreferrer">@github</a> ─ small platformer made for GameJam.',
     ' │  ├─<span class="line title">vloz.to:</span>',
     ' │  │  └─ <a class="fancy-text" href=\'https://vlozto.pythonanywhere.com/\' target="_blank" rel="noopener noreferrer">@deploy</a> ─ small website to store files (temporary).',
+    ' │  ├─<span class="line title">SlovenskeC:</span>',
+    ' │  │  └─ <a class="fancy-text" href=\'https://github.com/Heun11/slovenskeC\' target="_blank" rel="noopener noreferrer">@github</a> ─ translator from Slovenské C to classic C.',
+    ' │  ├─<span class="line title">Vloz2:</span>',
+    ' │  │  └─ <a class="fancy-text" href=\'https://github.com/Heun11/Vloz2\' target="_blank" rel="noopener noreferrer">@github</a> ─ better vlozto, unfortunately I couldn\'t find a free way to host it.',
     ' │  │',
-    ' ├─<span class="line category">Suspended Projects:</span>',
-    ' │',
-    ' │',
-    ' │',
-    ' │',
+    ' ├─<span class="line category">Suspended, Abandoned & In Progress Projects:</span>',
+    ' │  ├─<span class="line title">scapp:</span>',
+    ' │  │  └─ <a class="fancy-text" href=\'https://scapp-utdl.vercel.app/about\' target="_blank" rel="noopener noreferrer">@deploy</a> ─ ultimate todo list.',
+    ' │  ├─<span class="line title">smile:</span>',
+    ' │  │  └─ <a class="fancy-text" href=\'https://github.com/Heun11/smile-ce\' target="_blank" rel="noopener noreferrer">@deploy</a> ─ simple chess engine.',
+    ' │  ├─<span class="line title">YNTDTS:</span>',
+    ' │  │  └─ <a class="fancy-text" href=\'https://github.com/Heun11/yntdts\' target="_blank" rel="noopener noreferrer">@deploy</a> ─ another shitty todo list.',
+    ' │  ├─<span class="line title">RaycastingEngineJS:</span>',
+    ' │  │  └─ <a class="fancy-text" href=\'https://github.com/Heun11/RaycastingEngineJS\' target="_blank" rel="noopener noreferrer">@deploy</a> ─ shitty basics for raycasting engine.',
+    ' │  │',
+    ' ├─<span class="line title">Any other secret project should remain in shadows.</span>',
     '&nbsp',
   ],
   'whoami':[
@@ -132,8 +263,13 @@ input.addEventListener("input", (e) => {
   // console.log(input.style.width, getTextWidth(input.value, '1.25rem monospace'));
 });
 
-html.addEventListener("keypress", (e)=>{
-  if(e.keyCode === 13){
+html.addEventListener("keydown", (e)=>{
+  if((e.key==='Escape' || e.code==='Escape') && runMatrix ){
+    e.preventDefault();
+    runMatrix = false;
+    terminal.innerHTML = '';
+  }
+  if(e.key==='Enter'){
     e.preventDefault();
     // console.log(input.value)
     command = input.value;
@@ -148,6 +284,10 @@ html.addEventListener("keypress", (e)=>{
         if(command=='clear'){
           terminal.innerHTML = '';
         }
+        if(command=='matrix'){
+          runMatrix = true;
+          startLoop();
+        }
       })
     }
     else{
@@ -158,9 +298,7 @@ html.addEventListener("keypress", (e)=>{
   }
   else{
     input.focus();
-    
   }
-
 
   term.scrollTop = term.scrollHeight;
 });
