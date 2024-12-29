@@ -131,6 +131,30 @@ body{
   margin-left: 0.4rem;
 }
 
+@keyframes colorChange {
+  0% { color: #ff5733; }  /* Vibrant Orange */
+  25% { color: #33ff57; } /* Bright Green */
+  50% { color: #3357ff; } /* Bright Blue */
+  75% { color: #ff33a1; } /* Hot Pink */
+  100% { color: #ff5733; }
+}
+
+.fancy-text{
+  margin: 0;
+  color: red;
+  font-size: 1.25rem;
+  margin-left: 0.4rem;
+  animation: colorChange 4s infinite;
+}
+
+.category{
+  color: #faf;
+}
+
+.title{
+  color: #daf;
+}
+
 a{
   transition: all 0.3s;
   text-decoration: none;
@@ -138,6 +162,7 @@ a{
 }
 
 a:hover{
+  animation: none;
   color: #faf;
 }
 
@@ -152,7 +177,7 @@ p{
   display: none;
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1300px) {
   #pc{
     display: none;
   }

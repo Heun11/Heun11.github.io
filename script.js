@@ -4,24 +4,63 @@ var terminal = document.getElementById('output');
 var term = document.getElementById('terminal');
 var command = '';
 
+function yearsSince(dateString) {
+  const givenDate = new Date(dateString);
+  const currentDate = new Date();
+  let years = currentDate.getFullYear() - givenDate.getFullYear();
+
+  // Adjust if the current date is before the anniversary of the given date this year
+  const hasNotHadAnniversary = 
+    currentDate.getMonth() < givenDate.getMonth() || 
+    (currentDate.getMonth() === givenDate.getMonth() && currentDate.getDate() < givenDate.getDate());
+
+  if (hasNotHadAnniversary) {
+    years--;
+  }
+
+  return years;
+}
+
 var commands = {
   'notF':['Command not found. For a list of commands, type \'help\'.'],
+  'ls':[
+    'don\'t/ mind/ these/ folders/ secret.txt',
+  ],
+  'cat secret.txt':[
+    '&nbsp',
+    'What are you some kind of hacker ? 🧐',
+    '&nbsp',
+    '   ██░ ██  ▄▄▄      ▄████▄   ██ ▄█▀▓█████  ██▀███   ',
+    '  ▓██░ ██▒▒████▄   ▒██▀ ▀█   ██▄█▒ ▓█   ▀ ▓██ ▒ ██▒ ',
+    '  ▒██▀▀██░▒██  ▀█▄ ▒▓█    ▄ ▓███▄░ ▒███   ▓██ ░▄█ ▒ ',
+    '  ░▓█ ░██ ░██▄▄▄▄██▒▓▓▄ ▄██▒▓██ █▄ ▒▓█  ▄ ▒██▀▀█▄   ',
+    '  ░▓█▒░██▓ ▓█   ▓██▒ ▓███▀ ░▒██▒ █▄░▒████▒░██▓ ▒██▒ ',
+    '   ▒ ░░▒░▒ ▒▒   ▓▒█░ ░▒ ▒  ░▒ ▒▒ ▓▒░░ ▒░ ░░ ▒▓ ░▒▓░ ',
+    '   ▒ ░▒░ ░  ▒   ▒▒ ░ ░  ▒   ░ ░▒ ▒░ ░ ░  ░  ░▒ ░ ▒░ ',
+    '   ░  ░░ ░  ░   ▒  ░        ░ ░░ ░    ░     ░░   ░  ',
+    '   ░  ░  ░      ░  ░ ░      ░  ░      ░  ░   ░      ',
+    '&nbsp',
+  ],
   'help':[
     '&nbsp',
     ' help                  -> print all commands',
+    ' cat                   -> cat what ?',
     ' banner                -> cool banner',
     ' whoami                -> info about me',
     ' social                -> get my contact info',
     ' projects              -> info about some of my projects',
     ' clear                 -> clear screen',
+    ' matrix                -> Matrix ?!',
     '&nbsp',
   ],
   'clear':['cleared ;)'],
   'social':[
     '&nbsp',
-    ' github                -> <a href=\'https://github.com/Heun11\'>github@Heun11</a>',
-    ' instagram             -> <a href=\'https://www.instagram.com/mareklamos/\'>instagram@mareklamos</a>',
-    ' mail                  -> <a href=\'mailto:marek.lamos16@gmail.com\'>gmail@marek</a>',
+    '    ┏┓┳┏┳┓┏┳┳┳┓       ┏┓┳┳┓┏┓┳┓       ┳┳┓┏┓┏┳┓┏┓┏┓┳┓┏┓┳┳┓  ',
+    '    ┃┓┃ ┃┣┫┃┃┣┫       ┃┓┃┃┃┣┫┃┃       ┃┃┃┗┓ ┃ ┣┫┃┓┣┫┣┫┃┃┃  ',
+    '    ┗┛┻ ┻┛┗┗┛┻┛       ┗┛┛ ┗┛┗┻┗┛      ┻┛┗┗┛ ┻ ┛┗┗┛┛┗┛┗┛ ┗  ',
+    '&nbsp',
+    ' -><a class="fancy-text" href=\'https://github.com/Heun11\' target="_blank" rel="noopener noreferrer">github@Heun11</a>   -><a class="fancy-text" href=\'mailto:marek.lamos16@gmail.com\' target="_blank" rel="noopener noreferrer">gmail@marek</a>  -><a class="fancy-text" href=\'https://www.instagram.com/mareklamos/\' target="_blank" rel="noopener noreferrer">instagram@mareklamos</a>',
     '&nbsp',
   ],
   'projects':[
@@ -36,18 +75,41 @@ var commands = {
     ' Brainf*ck interpreter -> <a href=\'https://github.com/Heun11/brainf_ck-interpreter\'>Heun11@brainf_ck-interpreter</a>',
     ' Minimax TicTacToe     -> <a href=\'https://github.com/Heun11/minimax-ticttactoe\'>Heun11@minimax-ticttactoe</a>',
     '&nbsp',
+    '<span class="line category">./</span>',
+    ' ├─<span class="line category">Fully Finished Projects:</span>',
+    ' │  ├─<span class="line title">Between Life & Darkness:</span>',
+    ' │  │  └─ <a class="fancy-text" href=\'https://store.steampowered.com/app/3111020/Between_Life__Darkness/\' target="_blank" rel="noopener noreferrer">@steam</a> ─ story-driven puzzle game.',
+    ' │  ├─<span class="line title">Asteroid Aeronaut:</span>',
+    ' │  │  └─ <a class="fancy-text" href=\'https://heun.itch.io/asteroid-aeronaut\' target="_blank" rel="noopener noreferrer">@itch.io</a> ─ small arcade game.',
+    ' │  ├─<span class="line title">Enguin:</span>',
+    ' │  │  └─ <a class="fancy-text" href=\'https://github.com/Heun11/Enguin\' target="_blank" rel="noopener noreferrer">@github</a> ─ esoteric game engine based on terminal technology.',
+    ' │  ├─<span class="line title">touchSliderJS:</span>',
+    ' │  │  └─ <a class="fancy-text" href=\'https://github.com/Heun11/touchSliderJs\' target="_blank" rel="noopener noreferrer">@github</a> ─ touch slider library written in plain JS & CSS.',
+    ' │  ├─<span class="line title">Filiposs Tale:</span>',
+    ' │  │  └─ <a class="fancy-text" href=\'https://github.com/Heun11/filiposs-tale\' target="_blank" rel="noopener noreferrer">@github</a> ─ small platformer made for GameJam.',
+    ' │  ├─<span class="line title">vloz.to:</span>',
+    ' │  │  └─ <a class="fancy-text" href=\'https://vlozto.pythonanywhere.com/\' target="_blank" rel="noopener noreferrer">@deploy</a> ─ small website to store files (temporary).',
+    ' │  │',
+    ' ├─<span class="line category">Suspended Projects:</span>',
+    ' │',
+    ' │',
+    ' │',
+    ' │',
+    '&nbsp',
   ],
   'whoami':[
     '&nbsp',
-    ' Hello there, my name is Marek and I\'m young student from slovakia 🇸🇰!',
-    ' What you see is my best try to create interesting and kinda original portfolio 😀.',
+    '<p class="fancy-text"> ⚠️  WARNING: very boring text ⚠️ </p>',
     '&nbsp',
-    ' I\'m interested in: -> Web Development',
-    '                    -> Game Development',
-    '                    -> Tools Development',
-    '                    -> Electronics',
+    ` Hi, my name is Marek and I\'m ${yearsSince("2007-01-16")} years old guy from slovakia 🇸🇰!`,
+    ' What are you seeing is my best attempt to create interesting and fun portfolio. 🤓',
+    ' My main focus is on developing games (mostly) from scratch using C and something like Raylib',
+    ' or SDL2 (I know this isn\'t completely from scratch but I meant that I\'m not using any ',
+    ' modern Game Engine that does everything for you). I am also a huge fan of embedded systems',
+    ' and electronics. TBH I\'m not that big fan of web development but I think I like it more than',
+    ' mobile app development (that is just real pain in the ass). 😒',
     '&nbsp',
-    ' I would now give you my honest opinion: \'C is GOAT!\'',
+    ' Anyway, feel free to explore this fun little web terminal and let me know what you think. 😉',
     '&nbsp',
   ],
   'banner':[
