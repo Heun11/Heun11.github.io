@@ -69,7 +69,6 @@ function getLinesInDiv(div)
 {
   const divHeight = calculateCSSValue("calc(90vh - 3rem)"); // Total height of the div
   const charHeight = getCharacterHeight(div); // Height of a single character line
-  console.log((divHeight), charHeight);
   return Math.floor(divHeight / charHeight); // Calculate the number of lines
 }
 
@@ -267,6 +266,7 @@ html.addEventListener("keydown", (e)=>{
   if((e.key==='Escape' || e.code==='Escape') && runMatrix ){
     e.preventDefault();
     runMatrix = false;
+    matrixTable = undefined;
     terminal.innerHTML = '';
   }
   if(e.key==='Enter'){
