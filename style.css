@@ -1,342 +1,54 @@
+@import url(colors.css);
+
 html{
-  background-color: black;
+  background-color: var(--c-background-0);
+  /* background-color: #faf; */
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 body{
-  background-color: #212121;
-  border-radius: 15px;
-  margin: 0 auto;
-  margin-top: 4vh;
-  height: 90vh;
-  width: 80vw;
-  text-align: center;
-  font-family: monospace;
-}
-
-.hidden{
-  opacity: 0;
-  transition: all 0.5s;
-}
-
-.show{
-  opacity: 1;
-  transition: all 0.8s;
-}
-
-/* width */
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  background: #afafaf;
-  border-radius: 15px; 
-}
- 
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: #555;
-  border-radius: 15px;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #333; 
-}
-
-.bar{
-  border-radius: 15px 15px 0 0;
-  background-color: #2a2a2a;
-  height: 3rem;
-  width: 100%;
-  display: flex;
-}
-
-.bar-info{
-  margin: 0 auto;
-  font-size: 1.5rem;
-  padding-top: 0.5rem;
-  width: fit-content;
-  color: #FFCDBC;
-  /* background-color: red; */
-}
-
-.bar-close{
-  background-color: transparent;
-  border: none;
-  color: #FFCDBC;
-  font-size: 1.5rem;
-}
-
-#terminal{
-  text-align: left;
-  width: 100%;
-  height: calc(90vh - 3rem) !important;
-  /* background-color: red; */
   overflow-x: hidden;
-  overflow-y: scroll;
-  font-family: monospace;
-  font-size: 1.25rem;
+  margin: 15px;
+  margin-bottom: 0;
+  color: var(--c-text-white);
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-.command-div{
-  display: flex;
-  height: 1.5rem;
-  flex-direction: row;
-}
-
-.command{
-  all: unset;
-  font-size: 1.25rem;
-  margin-left: 0.4rem;
-  color: #aafaaa;
-}
-
-#input{
-  all: unset;
-  width: fit-content;
-  margin: 0;
-  margin-left: 0.75rem;
-  font-size: 1.25rem;
-  overflow: visible;
-  border: none;
-  color: #FFCDBC;
-  width: 0.1rem;
-  border-right: 0.8rem solid #aafaaa;
-  caret-color: transparent;
-  animation: show 1s forwards infinite;
-}
-
-@keyframes show {
-  0%{
-    border-right: 0.8rem solid rgba(170, 250, 170, .0);
-    -webkit-background-clip: padding-box;
-    background-clip: padding-box;
-  }
-  50%{
-    border-right: 0.8rem solid rgba(170, 250, 170, 1);
-    -webkit-background-clip: padding-box; 
-    background-clip: padding-box;
-  }
-  100%{
-    border-right: 0.8rem solid rgba(170, 250, 170, .0);
-    -webkit-background-clip: padding-box;
-    background-clip: padding-box;
-  }
-}
-
-.line{
-  margin: 0;
-  color: #FFCDBC;
-  font-size: 1.25rem;
-  margin-left: 0.4rem;
-}
-
-@keyframes colorChange {
-  0% { color: #ff5733; }  /* Vibrant Orange */
-  25% { color: #33ff57; } /* Bright Green */
-  50% { color: #3357ff; } /* Bright Blue */
-  75% { color: #ff33a1; } /* Hot Pink */
-  100% { color: #ff5733; }
-}
-
-.fancy-text{
-  margin: 0;
-  color: red;
-  font-size: 1.25rem;
-  margin-left: 0.4rem;
-  animation: colorChange 4s infinite;
-}
-
-.matrix-text{
-  color: rgba(255, 0, 0, 0);;
-  font-weight: bold;
-}
-
-.matrix-text-first{
-  color: #aafaaa;
-  font-weight: bold;
-}
-
-.matrix-text-in{
-  color: #6beb6b;
-  font-weight: bold;
-}
-
-.category{
-  color: #faf;
-}
-
-.title{
-  color: #daf;
+span{
+  font-style: italic;
 }
 
 a{
-  transition: all 0.3s;
   text-decoration: none;
-  color: #daf;
 }
 
-a:hover{
-  animation: none;
-  color: #faf;
+/* IMAGES */
+.first-image{
+  border-radius: 20px 20px 0 0;
 }
 
-p{
-  white-space: pre;
+.last-image{
+  border-radius: 0 0 20px 20px;
 }
 
-#pc{
-  display: block;
-}
-#mobil{
-  display: none;
+.img-full-width{
+  width: 100%;
 }
 
-@media screen and (max-width: 1300px) {
-  #pc{
-    display: none;
-  }
-  #mobil{
-    display: block;
-  }
-  body{
-    border-radius: 15px;
-    margin: 0 auto;
-    margin-top: 2vh;
-    margin-bottom: 2vh;
-    height: 100%;
-    width: 90vw;
-    padding: 2vw;
-  }
-  .box-holder{
-    display: flex;
-    flex-direction: column;
-    gap: 1rem 2rem;
-  }
-  .box{
-    display: flex;
-    background-color: #3a3a3a;
-    border-radius: 10px;
-    justify-content: center;
-    align-content: center;
-    flex-grow: 1;
-  }
+/* FOOTER */
+footer{
+  font-size: 0.8rem;
+  letter-spacing: 0.1rem;
+  text-align: center;
+}
 
-  #heading{
-    width: 100%;
-  }
-  #heading h1{
-    font-size: 8vw;
-    flex-grow: 1;
-    color: #aafaaa;
-    justify-self: center;
-  }
+footer p{
+  /* color: var(--c-main-2); */
+  color: var(--c-main-0);
+}
 
-  #about-box{
-    display: flex;
-    flex-direction: row;
-    gap: 1rem 1rem;
-  }
-  .about h2{
-    font-size: 6.6vw;
-    flex-grow: 1;
-    color: #aafaaa;
-    justify-self: center;
-  }
-  #about-text p{
-    padding: 0.5rem;
-    padding-left: 1rem;
-    text-align: left;
-    font-size: 5vw;
-    flex-grow: 1;
-    color: #FFCDBC;
-    text-wrap: wrap;
-    justify-self: center;
-  }
-
-  #banner p{
-    font-size: 2.7vw;
-    color: #FFCDBC;
-  }
-
-  #interests-box{
-    display: flex;
-    flex-direction: row;
-    gap: 1rem 1rem;
-  }
-  #interests ul{
-    padding-left: 5vw;
-    text-align: left;
-    font-size: 5vw;
-    color: #FFCDBC;
-    text-wrap: wrap;
-  }
-  #interests li{
-    color: #FFCDBC;
-    text-wrap: wrap;
-    justify-self: center;
-  }
-  #interests li::marker {
-    content: '> ';
-  }
-
-  #project-box{
-    display: flex;
-    flex-direction: row;
-    gap: 1rem 1rem;
-  }
-  #project ul{
-    padding-left: 5vw;
-    text-align: left;
-    color: #FFCDBC;
-    text-wrap: wrap;
-  }
-  #project li{
-    color: #FFCDBC;
-    font-size: 4.2vw;
-    text-wrap: wrap;
-    justify-self: center;
-  }
-  #project li::marker {
-    content: '~ ';
-  }
-  
-
-  #social-box{
-    display: flex;
-    flex-direction: column;
-    gap: 1rem 1rem;
-  }
-  #social-content{
-    display: flex;
-    flex-direction: row;
-    gap: 1rem 1rem;
-  }
-  #social-box h1{
-    font-size: 6.5vw;
-    flex-grow: 1;
-    color: #aafaaa;
-    justify-self: center;
-  }
-  #social-box ul{
-    padding-left: 5vw;
-    text-align: left;
-    font-size: 6vw;
-    color: #FFCDBC;
-    text-wrap: wrap;
-  }
-  #social-box li{
-    color: #daf;
-    text-wrap: wrap;
-    justify-self: center;
-  }
-  #social-box li::marker {
-    content: '# ';
-  }
-
-  #footer-box h2{
-    color: #daa998;
-  }
+footer a{
+  /* color: var(--c-main-2); */
+  color: var(--c-main-0);
 }

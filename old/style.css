@@ -1,0 +1,41 @@
+@import url(colors.css);
+
+html{
+  background-color: var(--c-background-0);
+}
+
+#pc{
+  display: block;
+}
+#mobil{
+  display: none;
+}
+
+body{
+  background-color: var(--c-background-1);
+  border-radius: 15px;
+  margin: 20px;
+  min-height: calc(100vh - 40px);
+  width: calc(100vw - 40px);
+  text-align: center;
+  font-family: monospace;
+}
+
+@media screen and (max-width: 1300px) {
+  #pc{
+    display: none;
+  }
+  #mobil{
+    display: block;
+  }
+  body{
+    border-radius: 15px;
+    margin: 0 auto;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    height: 100%;
+    width: 90vw;
+    padding: 2vw;
+  }
+  
+}

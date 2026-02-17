@@ -1,0 +1,14 @@
+/* color variables  */
+:root{
+  --c-background-0: #000;
+  --c-background-1: #1a1a1a;
+  --c-background-2: #0f0f0f;
+
+  --c-main-0: #E9E3D5;
+  --c-main-1: #FFD369;
+  --c-main-2: #FB4934;
+
+  --c-text-white: #E9E3D5;
+  --c-text-black: #000;
+  --c-text-terminal: #8ec07c;
+}
